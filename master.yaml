@@ -53,7 +53,7 @@ Resources:
             Parameters:
                 EnvironmentName: !Ref AWS::StackName
                 InstanceType: t2.large
-                ClusterSize: 4
+                ClusterSize: 2
                 VPC: !GetAtt VPC.Outputs.VPC
                 SecurityGroup: !GetAtt SecurityGroups.Outputs.ECSHostSecurityGroup
                 Subnets: !GetAtt VPC.Outputs.PrivateSubnets
@@ -82,7 +82,7 @@ Resources:
     #             Path: /
     #             ECSServiceAutoScalingRoleARN: !GetAtt ECS.Outputs.ECSServiceAutoScalingRole
 
-    WebsiteService:
+    HelloService:
         Type: AWS::CloudFormation::Stack
         Properties:
             TemplateURL: services/hello-service/service.yaml
@@ -106,10 +106,10 @@ Resources:
 
 Outputs:
 
-    ProductServiceUrl: 
-        Description: The URL endpoint for the product service
-        Value: !Join [ "/", [ !GetAtt ALB.Outputs.LoadBalancerUrl, "products" ]]
+    # ProductServiceUrl: 
+    #     Description: The URL endpoint for the product service
+    #     Value: !Join [ "/", [ !GetAtt ALB.Outputs.LoadBalancerUrl, "products" ]]
 
-    WebsiteServiceUrl: 
-        Description: The URL endpoint for the website service
-        Value: !Join ["", [ !GetAtt ALB.Outputs.LoadBalancerUrl, "/" ]]
+    # WebsiteServiceUrl: 
+    #     Description: The URL endpoint for the website service
+    #     Value: !Join ["", [ !GetAtt ALB.Outputs.LoadBalancerUrl, "/" ]]

@@ -18,7 +18,6 @@ case "$1" in
 	aws cloudformation package --template-file master.yaml --s3-bucket $S3BUCKET --output-template-file $GENTEMPLATE
 	aws cloudformation deploy --template-file $GENTEMPLATE --stack-name $STACKNAME --s3-bucket $S3BUCKET --capabilities CAPABILITY_NAMED_IAM
 	;;
-
     down)
 	aws cloudformation delete-stack --stack-name $STACKNAME
 	aws s3 rb s3://$S3BUCKET --force 

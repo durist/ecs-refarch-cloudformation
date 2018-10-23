@@ -1,0 +1,24 @@
+# Create s3 bucket
+aws s3api create-bucket --bucket durist-dev --region us-east-1 --acl private
+
+# Package to bucket
+aws cloudformation package --template-file ./master.yaml  --s3-bucket durist-dev --output-template-file s3template.json
+
+
+# Show stacks
+aws cloudformation describe-stacks
+
+# Deploy
+aws cloudformation deploy --template-file /home/durist/cloudformation/ecs-refarch-cloudformation/s3template.json --stack-name durist-dev-omd --capabilities CAPABILITY_NAMED_IAM
+
+# Debug (messages in reverse order)
+aws cloudformation describe-stack-events --stack-name durist-dev-omd
+
+# Delete stack (removes debug messages)
+aws cloudformation delete-stack --stack-name durist-dev-omd
+
+# Delete all objects in bucket
+aws s3 rm s3://durist-dev --recursive
+
+# Delete bucket
+aws s3api delete-bucket --bucket durist-dev 
